@@ -4,10 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest tests/e2e.test.ts",
+    "test": "npm run db:test:restart && dotenv -e .env.test -- jest tests/e2e.test.ts",
     "build": "tsc",
     "start:dev": "npx ts-node-dev src/main.ts",
-    "start": "npm run build && node build/main.js"
+    "start": "npm run build && node build/main.js",
+    "db:dev:up": "docker compose up dev_db -d",
+    "db:dev:rm": "docker compose down dev_db -v",
+    "db:dev:restart": "npm run db:dev:rm && npm run db:dev:up && sleep 1 && npx prisma db push",
+    "db:test:up": "docker compose up test_db -d",
+    "db:test:rm": "docker compose down test_db -v",
+    "db:test:restart": "npm run db:test:rm && npm run db:test:up && sleep 1 && dotenv -e .env.test -- npx prisma db push"
   },
   "keywords": [],
   "author": "",

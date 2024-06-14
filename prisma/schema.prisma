@@ -12,8 +12,8 @@ model Tasks {
   title       String             @db.VarChar(255)
   description String?            @db.VarChar(255)
   status      enum_Tasks_status? @default(in_process)
-  createdAt   DateTime?          @default(now()) @db.Timestamptz(6)
-  updatedAt   DateTime?          @default(now()) @db.Timestamptz(6)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
 }
 
 enum enum_Tasks_status {

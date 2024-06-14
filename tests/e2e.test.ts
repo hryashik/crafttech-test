@@ -10,6 +10,7 @@ describe("Tasks", () => {
   });
 });
 
-beforeAll(() => {
+afterAll(() => {
+  app.unref();
   app.close();
 })

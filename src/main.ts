@@ -1,23 +1,21 @@
 import express from "express";
 import tasksRouter from "./routers/tasksRouter";
 import exceptionFilter from "./middlewares/exceptionFilter";
-import prisma from "./prisma/prisma";
+import { PrismaService } from "./prisma/prismaService";
 
 const app = express();
 
 app.use("/tasks", tasksRouter);
 app.use(exceptionFilter);
 
-const port = process.env.APP_PORT;
-const server = app.listen(port, () =>
-  console.log(`App starting on ${port} port`),
-);
+const server = app.listen(process.env.PORT, () => console.log(`App starting on ${process.env.PORT} port`));
 
-init_app();
+start();
 
-async function init_app() {
+async function start() {
   try {
-    await prisma.$connect();
+    const prismaService = new PrismaService();
+    await prismaService.$connect();
   } catch (error) {
     console.error(error);
     process.exit(1);

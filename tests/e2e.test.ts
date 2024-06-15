@@ -92,7 +92,7 @@ describe("Tasks", () => {
       });
     });
   });
-  describe("/tasks/:id @GET", () => {
+  describe("/tasks/:id @DELETE", () => {
     describe("Incorrect id", () => {
       it("Should return 400", async () => {
         const res = await request(app).delete("/tasks/asda");
@@ -109,7 +109,6 @@ describe("Tasks", () => {
       it("Should return 204", async () => {
         const res = await request(app).delete(`/tasks/${taskId}`);
         expect(res.statusCode).toBe(204);
-        expect(res.body.id).toBe(taskId);
       });
     });
   });

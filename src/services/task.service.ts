@@ -23,8 +23,16 @@ export class TaskService {
     return this.taskRepository.create(dto);
   }
 
-  updateTaskById(dto: UpdateTaskDTO) {
-    return this.taskRepository.update(dto);
+  async updateTaskById(dto: UpdateTaskDTO) {
+    try {
+      return await this.taskRepository.update(dto);
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        throw new HttpException(404, "Task is not found");
+      } else {
+        throw new InternalServerError();
+      }
+    }
   }
 
   async deleteTaskById(id: number) {
@@ -32,7 +40,7 @@ export class TaskService {
       return await this.taskRepository.delete(id);
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
-        throw new HttpException(404, "Task is not exist");
+        throw new HttpException(404, "Task is not found");
       } else {
         throw new InternalServerError();
       }

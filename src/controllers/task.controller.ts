@@ -68,7 +68,7 @@ export class TasksController {
       if (!taskId) throw new HttpException(400, "Bad request");
       
       await this.taskService.deleteTaskById(taskId);
-      res.status(209).end();
+      res.status(204).end();
     } catch (error) {
       next(error);
     }

@@ -1,7 +1,12 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import HttpException from "../exceptions/httpException";
 
-function exceptionFilter(err: Error, req: Request, res: Response) {
+function exceptionFilter(
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   if (err instanceof HttpException) {
     res.status(err.statusCode).send({ error: err.message });
   } else {

@@ -5,10 +5,12 @@ import { PrismaService } from "./prisma/prismaService";
 
 const app = express();
 
+app.use(express.json());
 app.use("/tasks", tasksRouter);
 app.use(exceptionFilter);
 
-const server = app.listen(process.env.PORT, () => console.log(`App starting on ${process.env.PORT} port`));
+const port = process.env.APP_PORT;
+const server = app.listen(port, () => console.log(`App starting on ${port} port`));
 
 start();
 

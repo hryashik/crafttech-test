@@ -4,4 +4,4 @@ export type CreateTaskDTO = {
   title: string;
   description?: string;
   status?: enum_Tasks_status;
-}
+};

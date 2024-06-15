@@ -9,7 +9,7 @@ app.use(express.json());
 app.use("/tasks", tasksRouter);
 app.use(exceptionFilter);
 
-const port = process.env.APP_PORT;
+const port = process.env.APP_PORT || 3000;
 const server = app.listen(port, () => console.log(`App starting on ${port} port`));
 
 start();
